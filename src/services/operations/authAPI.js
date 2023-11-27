@@ -5,6 +5,7 @@ import { resetCart } from "../../slices/cartSlice"
 import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiConnector"
 import { endpoints } from "../apis"
+import { categories } from "../apis"
 
 const {
   SENDOTP_API,
@@ -13,6 +14,8 @@ const {
   RESETPASSTOKEN_API,
   RESETPASSWORD_API,
 } = endpoints
+
+const {ADD_CATEGORIES_API} = categories
 
 export function sendOtp(email, navigate) {
   return async (dispatch) => {
@@ -107,6 +110,32 @@ export function login(email, password, navigate) {
       dispatch(setUser({ ...response.data.user, image: userImage }))
       localStorage.setItem("token", JSON.stringify(response.data.token))
       navigate("/dashboard/my-profile")
+    } catch (error) {
+      console.log("LOGIN API ERROR............", error)
+      toast.error("Login Failed")
+    }
+    dispatch(setLoading(false))
+    toast.dismiss(toastId)
+  }
+}
+export function addCategory(name, category, navigate) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...")
+    dispatch(setLoading(true))
+    try {
+      const response = await apiConnector("POST", ADD_CATEGORIES_API, {
+        name,
+        category,
+      })
+
+      console.log("LOGIN API RESPONSE............", response)
+
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+
+      localStorage.setItem("token", JSON.stringify(response.data.token))
+      navigate("/dashboard")
     } catch (error) {
       console.log("LOGIN API ERROR............", error)
       toast.error("Login Failed")

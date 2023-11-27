@@ -6,6 +6,8 @@ function getRandomInt(max) {
 exports.createCategory = async (req, res) => {
   try {
     const { name, description } = req.body
+    // const name = "Programming"
+    // const description = "Let's learn Programming"
     if (!name) {
       return res
         .status(400)
@@ -35,6 +37,7 @@ exports.showAllCategories = async (req, res) => {
       success: true,
       data: allCategorys,
     })
+    console.log("allCategorys", allCategorys)
   } catch (error) {
     return res.status(500).json({
       success: false,

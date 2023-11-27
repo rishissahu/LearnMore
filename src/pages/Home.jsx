@@ -54,7 +54,7 @@ function Home() {
           </CTAButton>
         </div>
 
-        {/* Video */}
+        {/* Video
         <div className="mx-3 my-7 shadow-[10px_-5px_50px_-5px] shadow-blue-200">
           <video
             className="shadow-[20px_20px_rgba(255,255,255)]"
@@ -64,7 +64,7 @@ function Home() {
           >
             <source src={Banner} type="video/mp4" />
           </video>
-        </div>
+        </div> */}
 
         {/* Code Section 1  */}
         <div>
