@@ -12,6 +12,8 @@ const cors = require("cors");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
+const compression = require("compression");
 
 // Setting up port number
 const PORT = process.env.PORT || 4000;
@@ -22,6 +24,9 @@ dotenv.config();
 // Connecting to database
 database.connect();
  
+app.use(helmet());
+app.use(compression());
+
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
